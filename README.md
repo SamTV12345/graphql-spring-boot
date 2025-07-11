@@ -83,7 +83,7 @@ See our new [Documentation](https://www.graphql-java-kickstart.com/spring-boot/)
 Requirements:
 
 * Java 1.8
-* Spring Framework Boot > 2.x.x (web)
+* Spring Framework Boot > 3.2.12 (web)
 
 Gradle:
 
