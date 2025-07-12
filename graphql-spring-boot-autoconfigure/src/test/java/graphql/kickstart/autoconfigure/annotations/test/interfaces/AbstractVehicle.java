@@ -13,6 +13,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public abstract class AbstractVehicle implements Vehicle {
 
-  /** Note that you have to repeat the annotations from the interface method! */
+  /** Note that you have to repeat the com.samtv.annotations from the interface method! */
   @GraphQLField @GraphQLNonNull private String registrationNumber;
 }

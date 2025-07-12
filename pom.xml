@@ -61,7 +61,49 @@
         <version>1.18.32</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-java-kickstart</artifactId>
+        <version>15.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.16.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java-extended-scalars</artifactId>
+        <version>21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>21.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-java-servlet</artifactId>
+        <version>15.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.graphql-java-kickstart</groupId>
+        <artifactId>graphql-java-tools</artifactId>
+        <version>13.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.graphql-java</groupId>
+        <artifactId>graphql-java-annotations</artifactId>
+        <version>9.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot</artifactId>
+        <version>3.5.3</version>
+        <scope>compile</scope>
+      </dependency>
     </dependencies>
+
   </dependencyManagement>
 
   <build>

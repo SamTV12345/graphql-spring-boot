@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = {"graphql.annotations.input-prefix=", "graphql.annotations.input-suffix=Suffix"})
-@ActiveProfiles({"annotations", "test", "mutation-test"})
+@ActiveProfiles({"com.samtv.annotations", "test", "mutation-test"})
 class GraphQLAnnotationsMutationInputSuffixTest {
 
   @Autowired private GraphQLSchema graphQLSchema;
