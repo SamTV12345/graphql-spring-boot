@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 // hierarchy free from abstract classes.
 public class Truck implements Vehicle {
 
-  /** Note that you have to repeat the com.samtv.annotations from the interface method! */
+  /** Note that you have to repeat the annotations from the interface method! */
   @GraphQLField @GraphQLNonNull private String registrationNumber;
 
   @GraphQLField @GraphQLNonNull private int cargoWeightCapacity;

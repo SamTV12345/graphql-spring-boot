@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Testing directive registration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "directive-test"})
+@ActiveProfiles({"annotations", "test", "directive-test"})
 class GraphQLAnnotationsDirectiveTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Testing prettify settings (default)")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "prettify-default-test"})
+@ActiveProfiles({"annotations", "test", "prettify-default-test"})
 class GraphQLAnnotationsPrettifyDefaultTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

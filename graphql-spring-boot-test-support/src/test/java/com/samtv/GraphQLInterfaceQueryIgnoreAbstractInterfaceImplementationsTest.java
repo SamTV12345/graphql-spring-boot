@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = "graphql.annotations.ignore-abstract-interface-implementations=true")
-@ActiveProfiles({"com.samtv.annotations", "test", "interface-test"})
+@ActiveProfiles({"annotations", "test", "interface-test"})
 class GraphQLInterfaceQueryIgnoreAbstractInterfaceImplementationsTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

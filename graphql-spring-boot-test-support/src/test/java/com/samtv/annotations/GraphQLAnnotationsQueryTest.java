@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Testing query resolver registration.")
-@ActiveProfiles({"com.samtv.annotations", "test", "query-test"})
+@ActiveProfiles({"annotations", "test", "query-test"})
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = TestApplication.class)

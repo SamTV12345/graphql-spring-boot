@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "query-test"})
+@ActiveProfiles({"annotations", "test", "query-test"})
 class GraphQLAnnotationsBeanTest {
 
   @Autowired private ApplicationContext applicationContext;

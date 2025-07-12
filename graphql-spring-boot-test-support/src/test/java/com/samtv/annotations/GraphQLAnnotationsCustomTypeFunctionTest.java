@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Testing custom type function registration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "custom-type-function-test"})
+@ActiveProfiles({"annotations", "test", "custom-type-function-test"})
 class GraphQLAnnotationsCustomTypeFunctionTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

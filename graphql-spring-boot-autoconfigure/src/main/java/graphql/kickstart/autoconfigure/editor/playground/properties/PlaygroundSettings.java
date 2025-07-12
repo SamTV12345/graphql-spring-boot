@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 public class PlaygroundSettings {
 
   @NestedConfigurationProperty
-  @JsonUnwrapped(prefix = "com.samtv.editor.")
+  @JsonUnwrapped(prefix = "editor.")
   private PlaygroundEditorSettings editor;
 
   @NestedConfigurationProperty

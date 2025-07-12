@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 @Validated
-@ConfigurationProperties(prefix = "graphql.com.samtv.annotations")
+@ConfigurationProperties(prefix = "graphql.annotations")
 public class GraphQLAnnotationsProperties {
 
   /** The base package where GraphQL definitions (resolvers, types etc.) are searched for. */

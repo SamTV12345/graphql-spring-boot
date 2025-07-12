@@ -44,11 +44,11 @@ class PlaygroundSettingsTest {
     tab.set("headers", tabHeaders);
     tabs.add(tab);
     final ObjectNode settings = objectMapper.createObjectNode();
-    settings.put("com.samtv.editor.cursorShape", "underline");
-    settings.put("com.samtv.editor.fontFamily", "monospace");
-    settings.put("com.samtv.editor.fontSize", 14);
-    settings.put("com.samtv.editor.reuseHeaders", true);
-    settings.put("com.samtv.editor.theme", "dark");
+    settings.put("editor.cursorShape", "underline");
+    settings.put("editor.fontFamily", "monospace");
+    settings.put(".editor.fontSize", 14);
+    settings.put("editor.reuseHeaders", true);
+    settings.put("editor.theme", "dark");
     settings.put("prettier.printWidth", 80);
     settings.put("prettier.tabWidth", 2);
     settings.put("prettier.useTabs", false);

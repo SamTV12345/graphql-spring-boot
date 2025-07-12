@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Test type extension registration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "extend-type-test"})
+@ActiveProfiles({"annotations", "test", "extend-type-test"})
 class GraphQLAnnotationsExtendTypeTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

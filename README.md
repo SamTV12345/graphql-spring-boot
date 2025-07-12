@@ -36,7 +36,7 @@
   - [Customizing GraphQL Voyager](#customizing-graphql-voyager)
 - [Supported GraphQL-Java Libraries](#supported-graphql-java-libraries)
   - [GraphQL Java Tools](#graphql-java-tools)
-  - [GraphQL Annotations](#graphql-com.samtv.annotations)
+  - [GraphQL Annotations](#graphql-annotations)
     - [Configuration](#configuration)
     - [Root resolvers, directives, type extensions](#root-resolvers-directives-type-extensions)
     - [Interfaces](#interfaces)

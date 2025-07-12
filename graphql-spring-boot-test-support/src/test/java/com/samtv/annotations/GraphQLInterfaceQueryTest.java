@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @DisplayName("Testing interface handling.")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"com.samtv.annotations", "test", "interface-test"})
+@ActiveProfiles({"annotations", "test", "interface-test"})
 class GraphQLInterfaceQueryTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;
