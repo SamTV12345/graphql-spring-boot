@@ -46,7 +46,7 @@ class PlaygroundSettingsTest {
     final ObjectNode settings = objectMapper.createObjectNode();
     settings.put("editor.cursorShape", "underline");
     settings.put("editor.fontFamily", "monospace");
-    settings.put("editor.fontSize", 14);
+    settings.put(".editor.fontSize", 14);
     settings.put("editor.reuseHeaders", true);
     settings.put("editor.theme", "dark");
     settings.put("prettier.printWidth", 80);

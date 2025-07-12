@@ -82,7 +82,7 @@ class PlaygroundWebFluxEnabledTest {
 
   @Test
   void defaultScriptShouldBeAvailable() throws Exception {
-    testStaticResource(DEFAULT_SCRIPT_RESOURCE, DEFAULT_SCRIPT_PATH, "application/javascript");
+    testStaticResource(DEFAULT_SCRIPT_RESOURCE, DEFAULT_SCRIPT_PATH, "text/javascript");
   }
 
   @Test

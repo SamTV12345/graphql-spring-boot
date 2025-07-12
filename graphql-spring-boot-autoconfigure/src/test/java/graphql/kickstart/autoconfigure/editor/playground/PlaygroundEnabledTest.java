@@ -91,7 +91,7 @@ class PlaygroundEnabledTest {
         .perform(get(DEFAULT_SCRIPT_PATH))
         .andExpect(status().isOk())
         .andExpect(content().string(not(is(emptyString()))))
-        .andExpect(content().contentTypeCompatibleWith("application/javascript"));
+        .andExpect(content().contentTypeCompatibleWith("text/javascript"));
   }
 
   @Test
