@@ -1,0 +1,183 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.samtv</groupId>
+  <artifactId>graphql-spring-boot-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>${project.artifactId}</name>
+  <description>Parent POM für graphql-spring-boot</description>
+  <url>https://github.com/SamTV12345/graphql-spring-boot</url>
+
+  <modules>
+    <module>graphql-kickstart-spring-support</module>
+    <module>graphql-kickstart-spring-webflux</module>
+    <module>graphql-spring-boot-autoconfigure</module>
+    <module>graphql-spring-boot-test-autoconfigure</module>
+    <module>graphql-spring-boot-test</module>
+    <module>graphql-spring-boot-starter-test</module>
+    <module>graphql-spring-boot-starter</module>
+    <module>graphql-spring-boot-dependencies</module>
+    <module>graphql-spring-boot-test-support</module>
+  </modules>
+
+  <properties>
+    <java.version>17</java.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <spring-boot.version>3.5.3</spring-boot.version>
+    <graphql-java.version>13.0.3</graphql-java.version>
+    <jacoco.version>0.8.10</jacoco.version>
+    <sonar.organization>graphql-java-kickstart</sonar.organization>
+    <sonar.projectKey>graphql-java-kickstart_graphql-spring-boot</sonar.projectKey>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.license>MIT</project.license>
+    <project.license.url>https://github.com/SamTV12345/graphql-spring-boot?tab=MIT-1-ov-file</project.license.url>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.32</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Compiler Plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+          </configuration>
+        </plugin>
+        <!-- JaCoCo Plugin -->
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- SonarQube Plugin -->
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.10.0.2594</version>
+        </plugin>
+        <!-- Nexus Staging Plugin -->
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>1.6.13</version>
+          <extensions>true</extensions>
+        </plugin>
+        <!-- GPG Signing Plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>3.1.0</version>
+          <executions>
+            <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>sign</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <activation>
+        <property>
+          <name>!env.SNAPSHOT</name>
+        </property>
+      </activation>
+      <properties>
+        <gpg.keyname>${env.SIGNING_KEY_ID}</gpg.keyname>
+        <gpg.passphrase>${env.SIGNING_PASSWORD}</gpg.passphrase>
+        <gpg.secretKeyring>${env.SIGNING_SECRET_KEY_RING_FILE}</gpg.secretKeyring>
+      </properties>
+    </profile>
+  </profiles>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+  <licenses>
+    <license>
+      <name>${project.license}</name>
+      <url>${project.license.url}</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>${PROJECT_GIT_REPO_URL}</url>
+    <connection>${PROJECT_GIT_REPO_URL}</connection>
+    <developerConnection>${PROJECT_GIT_REPO_URL}</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>oliemansm</id>
+      <name>Michiel Oliemans</name>
+    </developer>
+    <developer>
+      <id>apottere</id>
+      <name>Andrew Porter</name>
+    </developer>
+  </developers>
+</project>
