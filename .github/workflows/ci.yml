@@ -1,4 +1,4 @@
-name: ci
+name: ci-maven
 on:
   push:
     branches:
@@ -6,16 +6,9 @@ on:
       - release/**
 
 jobs:
-  validation:
-    name: Gradle Wrapper Validation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v1
 
   test:
     name: Test run
-    needs: validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,21 +18,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Cache Gradle
+      - name: Cache Maven
         uses: actions/cache@v3
-        env:
-          java-version: 17
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ env.java-version }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.java-version }}-gradle-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Gradle Check
-        run: ./gradlew --info check
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.10
+      - name: Maven Test
+        run: mvn --batch-mode verify
 
   build:
     name: Publish snapshot
@@ -53,25 +43,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Cache Gradle
+      - name: Cache Maven
         uses: actions/cache@v3
-        env:
-          java-version: 17
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ env.java-version }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.java-version }}-gradle-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Gradle Publish Snapshot
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Maven Publish Snapshot
         if: env.OSS_USER_TOKEN_KEY != null
         env:
           OSS_USER_TOKEN_KEY: ${{ secrets.OSS_USER_TOKEN_KEY }}
           OSS_USER_TOKEN_PASS: ${{ secrets.OSS_USER_TOKEN_PASS }}
-        run: ./gradlew clean build publish -x test
+        run: mvn --batch-mode clean deploy -DskipTests
 
   sonar:
     name: Sonar analysis
@@ -80,8 +63,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 17
+          fetch-depth: 0
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -92,15 +75,15 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Gradle packages
+      - name: Cache Maven
         uses: actions/cache@v3
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         if: env.SONAR_TOKEN != null
-        run: ./gradlew build jacocoTestReport sonarqube --info
+        run: mvn --batch-mode verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}

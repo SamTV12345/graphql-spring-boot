@@ -28,8 +28,8 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-autoconfigure"
 
-    // annotations
-    api "io.github.graphql-java:graphql-java-annotations:$LIB_GRAPHQL_ANNOTATIONS_VER"
+    // com.samtv.annotations
+    api "io.github.graphql-java:graphql-java-.annotations:$LIB_GRAPHQL_ANNOTATIONS_VER"
     implementation "org.reflections:reflections:$LIB_REFLECTIONS_VER"
     implementation "org.springframework.boot:spring-boot-starter-validation"
 

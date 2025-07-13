@@ -143,7 +143,7 @@ public class GraphQLJavaToolsAutoConfiguration {
       havingValue = "true",
       matchIfMissing = true)
   public PerFieldObjectMapperProvider perFieldObjectMapperProvider(ObjectMapper objectMapper) {
-    objectMapper.registerModule(new Jdk8Module()).registerModule(new KotlinModule());
+    objectMapper.registerModule(new Jdk8Module()).registerModule(new KotlinModule.Builder().build());
     return fieldDefinition -> objectMapper;
   }
 

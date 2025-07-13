@@ -1,0 +1,2 @@
+graphql.annotations.base-package: com.graphql.spring.boot.test.support.annotations.test.prettify
+graphql.annotations.always-prettify: false

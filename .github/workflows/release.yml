@@ -2,16 +2,9 @@ name: "Publish release"
 on: [ workflow_dispatch ]
 
 jobs:
-  validation:
-    name: Gradle Wrapper Validation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v1
 
   test:
     name: Test run
-    needs: validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,21 +14,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Cache Gradle
+      - name: Cache Maven
         uses: actions/cache@v3
-        env:
-          java-version: 17
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ env.java-version }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.java-version }}-gradle-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Gradle Check
-        run: ./gradlew --info check
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.10
+      - name: Maven Test
+        run: mvn --batch-mode verify
 
   build:
     name: Publish release
@@ -49,19 +39,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Cache Gradle
+      - name: Cache Maven
         uses: actions/cache@v3
-        env:
-          java-version: 17
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ env.java-version }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.java-version }}-gradle-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
       - name: Prepare environment
         env:
           GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
@@ -74,4 +57,4 @@ jobs:
           SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.GPG_SIGNING_SECRET_KEY_RING_FILE }}
           OSS_USER_TOKEN_KEY: ${{ secrets.OSS_USER_TOKEN_KEY }}
           OSS_USER_TOKEN_PASS: ${{ secrets.OSS_USER_TOKEN_PASS }}
-        run: bash github-build.sh
+        run: mvn --batch-mode clean deploy -P release -Dgpg.keyname=${{ secrets.GPG_SIGNING_KEY_ID }} -Dgpg.passphrase=${{ secrets.GPG_SIGNING_PASSWORD }} -Dgpg.secretKeyring=${{ secrets.GPG_SIGNING_SECRET_KEY_RING_FILE }} -Dossrh.username=${{ secrets.OSS_USER_TOKEN_KEY }} -Dossrh.password=${{ secrets.OSS_USER_TOKEN_PASS }}
