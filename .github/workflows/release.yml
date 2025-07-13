@@ -2,16 +2,9 @@ name: "Publish release"
 on: [ workflow_dispatch ]
 
 jobs:
-  validation:
-    name: Maven Wrapper Validation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: s4u/maven-wrapper-validation-action@v1
 
   test:
     name: Test run
-    needs: validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,6 +20,10 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.10
       - name: Maven Test
         run: mvn --batch-mode verify
 

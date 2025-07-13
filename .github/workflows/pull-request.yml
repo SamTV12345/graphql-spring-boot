@@ -4,12 +4,6 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  validation:
-    name: Maven Wrapper Validation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: s4u/maven-wrapper-validation-action@v1
 
   test:
     name: Test run
@@ -18,7 +12,6 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         java: [ 17 ]
-    needs: [ validation ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -36,6 +29,10 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-${{ env.java-version }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-${{ env.java-version }}-maven-
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.10
       - name: Maven Test
         run: mvn --batch-mode verify
       - name: Publish Unit Test Results
