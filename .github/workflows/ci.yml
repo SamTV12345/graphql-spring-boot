@@ -58,7 +58,6 @@ jobs:
 
   sonar:
     name: Sonar analysis
-    needs: validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
