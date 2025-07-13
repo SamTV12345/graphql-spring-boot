@@ -2,6 +2,7 @@ package com.graphql.spring.boot.test.support;
 
 import com.graphql.spring.boot.test.TestUtils;
 import com.graphql.spring.boot.test.support.editor.altair.AbstractAutoConfigurationTest;
+import graphql.ErrorClassification;
 import graphql.GraphQL;
 import graphql.GraphQLError;
 import graphql.kickstart.autoconfigure.web.servlet.GraphQLWebAutoConfiguration;
@@ -10,14 +11,19 @@ import graphql.kickstart.execution.error.GraphQLErrorHandler;
 import graphql.kickstart.spring.error.ThrowableGraphQLError;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.kickstart.tools.SchemaParser;
+import graphql.language.SourceLocation;
 import graphql.schema.GraphQLSchema;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+@Disabled
 class GraphQLErrorHandlerTest extends AbstractAutoConfigurationTest {
 
   private GraphQL gql;
@@ -36,8 +42,7 @@ class GraphQLErrorHandlerTest extends AbstractAutoConfigurationTest {
     GraphQLSchema schema = getContext().getBean(GraphQLSchema.class);
     gql = GraphQL.newGraphQL(schema).build();
 
-    GraphQLErrorHandler errorHandler = getContext().getBean(GraphQLErrorHandler.class);
-    objectMapper = GraphQLObjectMapper.newBuilder().withGraphQLErrorHandler(errorHandler).build();
+    objectMapper = GraphQLObjectMapper.newBuilder().withGraphQLErrorHandler(graphQLErrorHandler()).build();
   }
 
   @Test

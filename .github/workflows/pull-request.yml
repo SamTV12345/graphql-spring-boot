@@ -5,11 +5,11 @@ on:
 
 jobs:
   validation:
-    name: Gradle Wrapper Validation
+    name: Maven Wrapper Validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v1
+      - uses: s4u/maven-wrapper-validation-action@v1
 
   test:
     name: Test run
@@ -28,31 +28,21 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - name: Cache Gradle
+      - name: Cache Maven
         uses: actions/cache@v3
         env:
           java-version: ${{ matrix.java }}
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ env.java-version }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-${{ env.java-version }}-gradle-
-      - name: Make gradlew executable (non-Windows only)
-        if: matrix.os != 'windows-latest'
-        run: chmod +x ./gradlew
-      - name: Gradle Check (non-Windows)
-        if: matrix.os != 'windows-latest'
-        run: ./gradlew --info check
-      - name: Gradle Check (Windows)
-        if: matrix.os == 'windows-latest'
-        shell: cmd
-        run: gradlew --info check
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-${{ env.java-version }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-${{ env.java-version }}-maven-
+      - name: Maven Test
+        run: mvn --batch-mode verify
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always() && matrix.os != 'ubuntu-latest'
         with:
-          files: '**/build/test-results/**/*.xml'
+          files: '**/target/surefire-reports/*.xml'
 
   build:
     name: Sonar analysis
@@ -64,7 +54,7 @@ jobs:
       - uses: actions/checkout@v4
         if: env.SONAR_TOKEN != null
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: Set up JDK 17
         if: env.SONAR_TOKEN != null
         uses: actions/setup-java@v4
@@ -78,16 +68,16 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Gradle packages
+      - name: Cache Maven packages
         if: env.SONAR_TOKEN != null
         uses: actions/cache@v3
         with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven
       - name: Build and analyze
         if: env.SONAR_TOKEN != null
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build jacocoTestReport sonarqube --info
+        run: mvn --batch-mode verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}

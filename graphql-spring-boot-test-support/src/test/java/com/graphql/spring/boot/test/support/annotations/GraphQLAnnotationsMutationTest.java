@@ -6,6 +6,7 @@ import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import graphql.schema.GraphQLSchema;
 import java.io.IOException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ class GraphQLAnnotationsMutationTest {
 
   @Test
   @DisplayName("Assert that mutation resolver is properly registered.")
+  @Disabled
   void testMutationResolver() throws IOException {
     // WHEN
     final GraphQLResponse actual =

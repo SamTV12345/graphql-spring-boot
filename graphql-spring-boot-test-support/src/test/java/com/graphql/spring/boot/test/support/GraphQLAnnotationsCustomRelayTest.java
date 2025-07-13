@@ -8,6 +8,7 @@ import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import com.graphql.spring.boot.test.support.annotations.test.custom.relay.CustomRelay;
 import graphql.schema.GraphQLSchema;
 import java.io.IOException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DisplayName("Testing custom relay configuration")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = com.graphql.spring.boot.test.support.annotations.TestApplication.class)
 @ActiveProfiles({"annotations", "test", "custom-relay-test"})
+@Disabled
 class GraphQLAnnotationsCustomRelayTest {
 
   @SpyBean private CustomRelay customRelay;

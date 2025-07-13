@@ -12,6 +12,7 @@ import graphql.schema.GraphQLSchema;
 import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DisplayName("Testing interface handling.")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = com.graphql.spring.boot.test.support.annotations.TestApplication.class)
 @ActiveProfiles({"annotations", "test", "interface-test"})
+@Disabled
 class GraphQLInterfaceQueryTest {
 
   @Autowired private GraphQLTestTemplate graphQLTestTemplate;

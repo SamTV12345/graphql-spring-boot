@@ -2,6 +2,7 @@ package com.graphql.spring.boot.test.support.editor.voyager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.graphql.spring.boot.test.support.annotations.TestApplication;
 import graphql.kickstart.autoconfigure.editor.voyager.ReactiveVoyagerAutoConfiguration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +19,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-    classes = {ReactiveVoyagerAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class},
+    classes = {ReactiveVoyagerAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class, TestApplication.class, PermitAllWebFluxSecurity.class},
     properties = {"graphql.voyager.enabled=true", "spring.main.web-application-type=reactive"})
 @AutoConfigureWebTestClient
 @ActiveProfiles("voyager")

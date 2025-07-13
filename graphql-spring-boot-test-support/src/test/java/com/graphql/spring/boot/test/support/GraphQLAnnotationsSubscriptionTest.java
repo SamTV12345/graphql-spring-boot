@@ -22,6 +22,7 @@ class GraphQLAnnotationsSubscriptionTest {
   @DisplayName("Assert that subscription resolver is properly registered.")
   void testSubscription() {
     // GIVEN
+    graphQLTestSubscription.reset();
     final GraphQLResponse graphQLResponse =
         graphQLTestSubscription
             .init()

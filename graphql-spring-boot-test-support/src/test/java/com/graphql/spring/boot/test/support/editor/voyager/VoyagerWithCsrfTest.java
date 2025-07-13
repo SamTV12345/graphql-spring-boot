@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.graphql.spring.boot.test.support.annotations.TestApplication;
 import graphql.kickstart.autoconfigure.editor.voyager.VoyagerAutoConfiguration;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,11 +22,11 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-    classes = {VoyagerAutoConfiguration.class, SecurityAutoConfiguration.class},
+    classes = {VoyagerAutoConfiguration.class, SecurityAutoConfiguration.class, TestApplication.class, PermitAllWebSecurity.class},
     properties = {"graphql.voyager.enabled=true", "spring.main.web-application-type=servlet"})
 @AutoConfigureMockMvc
-@ActiveProfiles("voyager")
 @Disabled
+@ActiveProfiles("voyager")
 class VoyagerWithCsrfTest {
 
   @Autowired private MockMvc mockMvc;

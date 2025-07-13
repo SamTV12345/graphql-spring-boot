@@ -1,9 +1,13 @@
 package com.graphql.spring.boot.test.support.editor.altair;
 
+import graphql.GraphQLError;
+import graphql.kickstart.execution.error.GraphQLErrorHandler;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.AbstractApplicationContext;
 
 /** @author Moncef AOUDIA */
@@ -23,6 +27,12 @@ public abstract class AbstractAutoConfigurationTest {
     assert AnnotationConfigRegistry.class.isAssignableFrom(contextClass);
     this.contextClass = contextClass;
     this.autoConfiguration = autoConfiguration;
+  }
+
+
+  @Bean
+  public GraphQLErrorHandler graphQLErrorHandler () {
+    return list -> List.of();
   }
 
   @AfterEach

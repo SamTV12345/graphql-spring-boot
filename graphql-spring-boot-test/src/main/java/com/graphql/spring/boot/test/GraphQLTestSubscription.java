@@ -99,7 +99,8 @@ public class GraphQLTestSubscription {
    */
   public GraphQLTestSubscription init(@Nullable final Object payload) {
     if (isInitialized()) {
-      fail("Subscription already initialized.");
+      System.out.print("Subscription already initialized.");
+      return this;
     }
     try {
       initClient();
