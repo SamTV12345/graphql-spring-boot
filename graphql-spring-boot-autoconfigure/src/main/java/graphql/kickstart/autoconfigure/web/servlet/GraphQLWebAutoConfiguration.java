@@ -270,6 +270,11 @@ public class GraphQLWebAutoConfiguration {
   }
 
   @Bean
+  public ObjectMapper objectMapper(){
+    return new ObjectMapper();
+  }
+
+  @Bean
   @ConditionalOnMissingBean
   public GraphQLObjectMapper graphQLObjectMapper(
       ObjectProvider<ObjectMapperProvider> objectMapperProviderObjectProvider,

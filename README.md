@@ -296,11 +296,11 @@ graphql:
       enabled: false
       version: latest
     settings:
-      com.samtv.editor.cursorShape: line
-      com.samtv.editor.fontFamily: "'Source Code Pro', 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace"
-      com.samtv.editor.fontSize: 14
-      com.samtv.editor.reuseHeaders: true
-      com.samtv.editor.theme: dark
+      editor.cursorShape: line
+      editor.fontFamily: "'Source Code Pro', 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace"
+      editor.fontSize: 14
+      editor.reuseHeaders: true
+      editor.theme: dark
       general.betaUpdates: false
       prettier.printWidth: 80
       prettier.tabWidth: 2
@@ -466,22 +466,22 @@ the classpath. Use the `schemaLocationPattern` property to customize this patter
 
 ## GraphQL Annotations
 
-https://github.com/Enigmatis/graphql-java-com.samtv.annotations
+https://github.com/Enigmatis/graphql-java-annotations
 
 To use GraphQL Annotations library instead of GraphQL Java Tools, set the `graphql.schema-strategy`
-property to `com.samtv.annotations`.
+property to `annotations`.
 
 The schema will be built using the GraphQL Annotations library in a code-first approach - instead of
 writing it manually, the schema will be constructed based on the Java code. Please see the
 documentation of the GraphQL Annotations library for a detailed documentation of the available
-com.samtv.annotations. This readme focuses on how GraphQL Annotations - GraphQL Spring Boot Starter
+annotations. This readme focuses on how GraphQL Annotations - GraphQL Spring Boot Starter
 integration works.
 
 ### Configuration
 
 ```
 graphql:
-    com.samtv.annotations:
+    annotations:
         base-package: com.example.graphl.schema # required
         always-prettify: true #true is the default value, no need to specify it
 ```
@@ -494,7 +494,7 @@ methods - the get/set/is prefix will be removed from GraphQL fields automaticall
 
 The root resolvers must be marked with the `GraphQLQueryResolver`, `GraphQLMutationResolver`
 and `GraphQLSubscription`
-com.samtv.annotations (not to be confused with the marker interfaces from the GraphQL Java Tools library).
+annotations (not to be confused with the marker interfaces from the GraphQL Java Tools library).
 
 **Important:**
 
@@ -549,7 +549,7 @@ The available scalars are the following: `BigDecimal`, `BigInteger`, `Byte`, `Ch
 `PositiveInt`, `Short`, `Time`, `UUID` *(since 13.0.0)*, `Url`.
 
 This setting works with both the [GraphQL Java Tools](#graphql-java-tools) and the
-[GraphQL Annotations](#graphql-com.samtv.annotations) integration.
+[GraphQL Annotations](#graphql-annotations) integration.
 
 When using the [GraphQL Java Tools](#graphql-java-tools) integration, the scalars must also be
 declared in the GraphQL Schema:

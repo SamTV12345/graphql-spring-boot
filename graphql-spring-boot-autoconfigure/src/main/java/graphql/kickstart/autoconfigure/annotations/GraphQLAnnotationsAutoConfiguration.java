@@ -181,7 +181,7 @@ public class GraphQLAnnotationsAutoConfiguration {
 
   /**
    * Workaround for a bug in Reflections - {@link Reflections#getTypesAnnotatedWith)} will throw a
-   * {@link ReflectionsException} if there are no types with com.samtv.annotations in the specified package.
+   * {@link ReflectionsException} if there are no types with annotations in the specified package.
    *
    * @param reflections the {@link Reflections} instance
    * @param annotation the annotation class
